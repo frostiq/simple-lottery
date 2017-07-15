@@ -9,7 +9,7 @@ contract ILottery {
     function finalize() returns (bool success);
 }
 
-contract Lottery is ILottery, Random, Owned {
+contract Lottery is ILottery, Owned {
 
     struct Bet {
         uint number;
@@ -44,7 +44,7 @@ contract Lottery is ILottery, Random, Owned {
     function finalize() onlyowner returns (bool success) {
         if(isFinalized) return false;
 
-        uint target = randomGen(maxValue);
+        uint target = Random.randomGen(maxValue);
         uint minDist = maxValue;
         uint win;
         for (uint i = 1; i < bets.length; i++) {
